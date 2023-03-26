@@ -8,14 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CinemaController {
 
+    private final Cinema cinema = new Cinema();
+
     @GetMapping("/seats")
-    public String getCinemaInformation() throws JsonProcessingException {
-        Cinema cinema = new Cinema();
-        ObjectMapper mapper = new ObjectMapper();
-
-        String res = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(cinema);
-
-        return res;
+    public Cinema getCinemaInformation() {
+        return cinema;
     }
 
 }
