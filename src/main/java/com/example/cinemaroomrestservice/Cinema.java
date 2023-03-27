@@ -28,6 +28,11 @@ public class Cinema {
     }
 
     public Seat findAvailableSeat(Seat seat) {
+        if (seat.getRow() > totalRows || seat.getColumn() > totalColumns ||
+                seat.getRow() <= 0 || seat.getColumn() <= 0) {
+            throw new SeatNotFoundException();
+        }
+
         for (Seat s : availableSeats) {
             if (s.getRow() == seat.getRow() && s.getColumn() == seat.getColumn()) {
                 availableSeats.remove(s);
@@ -35,7 +40,8 @@ public class Cinema {
                 return s;
             }
         }
-        throw new RuntimeException("No seat");
+
+        throw new SeatPurchasedException();
     }
 
     public int getTotalRows() {
