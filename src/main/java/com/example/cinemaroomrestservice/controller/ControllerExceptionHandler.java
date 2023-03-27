@@ -3,6 +3,7 @@ package com.example.cinemaroomrestservice.controller;
 import com.example.cinemaroomrestservice.exceptions.CustomErrorMessage;
 import com.example.cinemaroomrestservice.exceptions.SeatNotFoundException;
 import com.example.cinemaroomrestservice.exceptions.SeatPurchasedException;
+import com.example.cinemaroomrestservice.exceptions.WrongTokenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,6 +27,15 @@ public class ControllerExceptionHandler {
         CustomErrorMessage body = new CustomErrorMessage("The ticket has been already purchased!");
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(WrongTokenException.class)
+    public ResponseEntity<CustomErrorMessage> handleFlightNotFound(
+            WrongTokenException e, WebRequest request) {
+
+        CustomErrorMessage body = new CustomErrorMessage("Wrong token!");
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
 
 }
 

@@ -44,6 +44,15 @@ public class Cinema {
         throw new SeatPurchasedException();
     }
 
+    public void returnFromPurchase(Seat seat) {
+        for (Seat s : availableSeats) {
+            if (s.getRow() == seat.getRow() && s.getColumn() == seat.getColumn()) {
+                purchasedSeats.remove(s);
+                return;
+            }
+        }
+    }
+
     public int getTotalRows() {
         return totalRows;
     }

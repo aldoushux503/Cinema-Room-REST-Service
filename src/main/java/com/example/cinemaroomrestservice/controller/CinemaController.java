@@ -1,6 +1,8 @@
 package com.example.cinemaroomrestservice.controller;
 
 import com.example.cinemaroomrestservice.*;
+import com.example.cinemaroomrestservice.exceptions.WrongTokenException;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -44,23 +46,24 @@ public class CinemaController {
         return purchase;
     }
 
-
     @PostMapping("/return")
-    public Seat returnTicket(@RequestBody String requestJson) {
+    public Map<String, Seat> returnTicket(@RequestBody String requestJson) {
         ObjectMapper mapper = new ObjectMapper();
 
-        Token token = null;
+        String token = null;
         try {
-            token = mapper.readValue(requestJson, Token.class);
+            token = mapper.readValue(requestJson, Token.class).getValue();
         } catch (JsonProcessingException e) {
             LOGGER.error(String.valueOf(e));
         }
-        String findingTokenValue = token.getValue();
 
-        if (availableTokensMap.containsKey(findingTokenValue)) {
-            return availableTokensMap.get(findingTokenValue);
+        if (availableTokensMap.containsKey(token)) {
+            Seat findedSeat = availableTokensMap.get(token);
+            cinema.returnFromPurchase(findedSeat);
+
+            return Map.of("returned_ticket", findedSeat);
         }
 
-        return null;
+        throw new WrongTokenException();
     }
 }
