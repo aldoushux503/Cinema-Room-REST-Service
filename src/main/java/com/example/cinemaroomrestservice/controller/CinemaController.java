@@ -2,7 +2,6 @@ package com.example.cinemaroomrestservice.controller;
 
 import com.example.cinemaroomrestservice.*;
 import com.example.cinemaroomrestservice.exceptions.WrongTokenException;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -19,37 +18,33 @@ import java.util.Map;
 public class CinemaController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CinemaRoomRestServiceApplication.class);
+    ObjectMapper mapper = new ObjectMapper();
     private final Cinema cinema = new Cinema();
-    private static final Map<String, Seat> availableTokensMap = new HashMap<>();
+    private static final Map<String, Ticket> availableTokensMap = new HashMap<>();
 
     @GetMapping("/seats")
-    public Cinema getCinemaInformation(@RequestBody String requestJson) {
+    public Cinema getCinemaInformation() {
         return cinema;
     }
 
-
     @PostMapping("/purchase")
     public PurchaseSeat purchaseSeat(@RequestBody String requestJson) {
-        ObjectMapper mapper = new ObjectMapper();
-
-        Seat purchaseSeat = null;
+        Ticket purchaseTicket = null;
         try {
-            purchaseSeat = mapper.readValue(requestJson, Seat.class);
+            purchaseTicket = mapper.readValue(requestJson, Ticket.class);
         } catch (JsonProcessingException e) {
             LOGGER.error(String.valueOf(e));
         }
 
-        Seat seat = cinema.findAvailableSeat(purchaseSeat);
-        PurchaseSeat purchase = new PurchaseSeat(seat);
-        availableTokensMap.put(purchase.getToken(), seat);
+        Ticket ticket = cinema.findAvailableSeat(purchaseTicket);
+        PurchaseSeat purchase = new PurchaseSeat(ticket);
+        availableTokensMap.put(purchase.getToken(), ticket);
 
         return purchase;
     }
 
     @PostMapping("/return")
-    public Map<String, Seat> returnTicket(@RequestBody String requestJson) {
-        ObjectMapper mapper = new ObjectMapper();
-
+    public Map<String, Ticket> returnTicket(@RequestBody String requestJson) {
         String token = null;
         try {
             token = mapper.readValue(requestJson, Token.class).getValue();
@@ -58,12 +53,10 @@ public class CinemaController {
         }
 
         if (availableTokensMap.containsKey(token)) {
-            Seat findedSeat = availableTokensMap.get(token);
-            cinema.returnFromPurchase(findedSeat);
-
-            return Map.of("returned_ticket", findedSeat);
+            Ticket findedTicket = availableTokensMap.get(token);
+            cinema.returnFromPurchase(findedTicket);
+            return Map.of("returned_ticket", findedTicket);
         }
-
         throw new WrongTokenException();
     }
 }

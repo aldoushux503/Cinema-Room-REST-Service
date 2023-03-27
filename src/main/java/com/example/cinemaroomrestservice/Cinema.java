@@ -15,30 +15,30 @@ public class Cinema {
     private final int totalColumns = 9;
 
     @JsonProperty("available_seats")
-    private final ArrayList<Seat> availableSeats = new ArrayList<Seat>();
+    private final ArrayList<Ticket> availableTickets = new ArrayList<>();
 
     @JsonIgnore
-    private final ArrayList<Seat> purchasedSeats = new ArrayList<Seat>();
+    private final ArrayList<Ticket> purchasedTickets = new ArrayList<>();
 
 
     public Cinema() {
         for (int row = 1; row <= totalRows; row++) {
             for (int column = 1; column <= totalColumns; column++) {
-                availableSeats.add(new Seat(row, column));
+                availableTickets.add(new Ticket(row, column));
             }
         }
     }
 
-    public Seat findAvailableSeat(Seat seat) {
-        if (seat.getRow() > totalRows || seat.getColumn() > totalColumns ||
-                seat.getRow() <= 0 || seat.getColumn() <= 0) {
+    public Ticket findAvailableSeat(Ticket ticket) {
+        if (ticket.getRow() > totalRows || ticket.getColumn() > totalColumns ||
+                ticket.getRow() <= 0 || ticket.getColumn() <= 0) {
             throw new SeatNotFoundException();
         }
 
-        for (Seat s : availableSeats) {
-            if (s.getRow() == seat.getRow() && s.getColumn() == seat.getColumn()) {
-                availableSeats.remove(s);
-                purchasedSeats.add(s);
+        for (Ticket s : availableTickets) {
+            if (s.getRow() == ticket.getRow() && s.getColumn() == ticket.getColumn()) {
+                availableTickets.remove(s);
+                purchasedTickets.add(s);
                 return s;
             }
         }
@@ -46,10 +46,10 @@ public class Cinema {
         throw new SeatPurchasedException();
     }
 
-    public void returnFromPurchase(Seat seat) {
-        for (Seat s : availableSeats) {
-            if (s.getRow() == seat.getRow() && s.getColumn() == seat.getColumn()) {
-                purchasedSeats.remove(s);
+    public void returnFromPurchase(Ticket ticket) {
+        for (Ticket s : availableTickets) {
+            if (s.getRow() == ticket.getRow() && s.getColumn() == ticket.getColumn()) {
+                purchasedTickets.remove(s);
                 return;
             }
         }
@@ -63,7 +63,7 @@ public class Cinema {
         return totalColumns;
     }
 
-    public ArrayList<Seat> getAvailableSeats() {
-        return availableSeats;
+    public ArrayList<Ticket> getAvailableSeats() {
+        return availableTickets;
     }
 }

@@ -2,13 +2,13 @@ package com.example.cinemaroomrestservice;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Seat {
+public class Ticket {
     private final int row;
     private final int column;
 
     private final int price;
 
-    public Seat(@JsonProperty("row") int row, @JsonProperty("column") int column) {
+    public Ticket(@JsonProperty("row") int row, @JsonProperty("column") int column) {
         this.row = row;
         this.column = column;
 
