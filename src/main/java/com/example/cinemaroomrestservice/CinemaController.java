@@ -25,15 +25,14 @@ public class CinemaController {
     public Seat purchaseSeat(@RequestBody String requestJson) {
         ObjectMapper mapper = new ObjectMapper();
 
-        Seat purchase = null;
+        Seat purchaseSeat = null;
         try {
-            purchase = mapper.readValue(requestJson, Seat.class);
+            purchaseSeat = mapper.readValue(requestJson, Seat.class);
         } catch (JsonProcessingException e) {
             LOGGER.error(String.valueOf(e));
         }
 
-
-        return purchase;
+        return cinema.findAvailableSeat(purchaseSeat);
     }
 
 }

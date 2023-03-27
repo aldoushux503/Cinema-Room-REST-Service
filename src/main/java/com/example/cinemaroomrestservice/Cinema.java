@@ -16,6 +16,8 @@ public class Cinema {
     @JsonProperty("available_seats")
     private final ArrayList<Seat> availableSeats = new ArrayList<Seat>();
 
+    private final ArrayList<Seat> purchasedSeats = new ArrayList<Seat>();
+
 
     public Cinema() {
         for (int row = 1; row <= totalRows; row++) {
@@ -23,6 +25,17 @@ public class Cinema {
                 availableSeats.add(new Seat(row, column));
             }
         }
+    }
+
+    public Seat findAvailableSeat(Seat seat) {
+        for (Seat s : availableSeats) {
+            if (s.getRow() == seat.getRow() && s.getColumn() == seat.getColumn()) {
+                availableSeats.remove(s);
+                purchasedSeats.add(s);
+                return s;
+            }
+        }
+        throw new RuntimeException("No seat");
     }
 
     public int getTotalRows() {
