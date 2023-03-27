@@ -3,17 +3,19 @@ package com.example.cinemaroomrestservice;
 import java.util.UUID;
 
 public class PurchaseSeat {
-    private final String token;
+    private final Token token;
     private final Seat seat;
 
 
     public PurchaseSeat(Seat seat) {
         this.seat = seat;
-        this.token = String.valueOf(UUID.randomUUID());
+
+        String randomToken = String.valueOf(UUID.randomUUID());
+        this.token = new Token(randomToken);
     }
 
     public String getToken() {
-        return token;
+        return token.getValue();
     }
 
     public Seat getSeat() {
