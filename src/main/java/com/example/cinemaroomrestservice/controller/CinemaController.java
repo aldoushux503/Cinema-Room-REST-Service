@@ -2,6 +2,7 @@ package com.example.cinemaroomrestservice.controller;
 
 import com.example.cinemaroomrestservice.Cinema;
 import com.example.cinemaroomrestservice.CinemaRoomRestServiceApplication;
+import com.example.cinemaroomrestservice.PurchaseSeat;
 import com.example.cinemaroomrestservice.Seat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +26,7 @@ public class CinemaController {
 
 
     @PostMapping("/purchase")
-    public Seat purchaseSeat(@RequestBody String requestJson) {
+    public PurchaseSeat purchaseSeat(@RequestBody String requestJson) {
         ObjectMapper mapper = new ObjectMapper();
 
         Seat purchaseSeat = null;
@@ -35,7 +36,9 @@ public class CinemaController {
             LOGGER.error(String.valueOf(e));
         }
 
-        return cinema.findAvailableSeat(purchaseSeat);
+        Seat seat = cinema.findAvailableSeat(purchaseSeat);
+
+        return new PurchaseSeat(seat);
     }
 
 }
