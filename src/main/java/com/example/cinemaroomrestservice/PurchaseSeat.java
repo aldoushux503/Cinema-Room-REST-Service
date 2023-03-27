@@ -1,9 +1,12 @@
 package com.example.cinemaroomrestservice;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.UUID;
 
 public class PurchaseSeat {
     private final Token token;
+    @JsonProperty("ticket")
     private final Seat seat;
 
 

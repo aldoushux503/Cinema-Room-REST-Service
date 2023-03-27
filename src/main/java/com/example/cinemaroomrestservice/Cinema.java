@@ -2,6 +2,7 @@ package com.example.cinemaroomrestservice;
 
 import com.example.cinemaroomrestservice.exceptions.SeatNotFoundException;
 import com.example.cinemaroomrestservice.exceptions.SeatPurchasedException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class Cinema {
     @JsonProperty("available_seats")
     private final ArrayList<Seat> availableSeats = new ArrayList<Seat>();
 
+    @JsonIgnore
     private final ArrayList<Seat> purchasedSeats = new ArrayList<Seat>();
 
 
