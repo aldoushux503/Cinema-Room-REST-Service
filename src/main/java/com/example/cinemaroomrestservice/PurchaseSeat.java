@@ -1,9 +1,14 @@
 package com.example.cinemaroomrestservice;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.UUID;
 
 public class PurchaseSeat {
     private final Token token;
+
+    @JsonProperty("ticket")
     private final Seat seat;
 
 

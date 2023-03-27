@@ -23,7 +23,7 @@ public class CinemaController {
     private static final Map<String, Seat> availableTokensMap = new HashMap<>();
 
     @GetMapping("/seats")
-    public Cinema getCinemaInformation(@RequestBody String requestJson) {
+    public Cinema getCinemaInformation() {
         return cinema;
     }
 

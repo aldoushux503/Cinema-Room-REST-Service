@@ -2,10 +2,13 @@ package com.example.cinemaroomrestservice;
 
 import com.example.cinemaroomrestservice.exceptions.SeatNotFoundException;
 import com.example.cinemaroomrestservice.exceptions.SeatPurchasedException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Cinema {
     @JsonProperty("total_rows")
     private final int totalRows = 9;
@@ -16,6 +19,7 @@ public class Cinema {
     @JsonProperty("available_seats")
     private final ArrayList<Seat> availableSeats = new ArrayList<Seat>();
 
+    @JsonIgnore
     private final ArrayList<Seat> purchasedSeats = new ArrayList<Seat>();
 
 
@@ -63,5 +67,9 @@ public class Cinema {
 
     public ArrayList<Seat> getAvailableSeats() {
         return availableSeats;
+    }
+
+    public ArrayList<Seat> getPurchasedSeats() {
+        return purchasedSeats;
     }
 }
