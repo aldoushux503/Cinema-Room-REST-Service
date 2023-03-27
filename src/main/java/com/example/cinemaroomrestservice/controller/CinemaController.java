@@ -1,5 +1,8 @@
-package com.example.cinemaroomrestservice;
+package com.example.cinemaroomrestservice.controller;
 
+import com.example.cinemaroomrestservice.Cinema;
+import com.example.cinemaroomrestservice.CinemaRoomRestServiceApplication;
+import com.example.cinemaroomrestservice.Seat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

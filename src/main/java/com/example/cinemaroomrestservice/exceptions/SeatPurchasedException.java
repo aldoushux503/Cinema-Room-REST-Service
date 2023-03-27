@@ -1,4 +1,4 @@
-package com.example.cinemaroomrestservice;
+package com.example.cinemaroomrestservice.exceptions;
 
 public class SeatPurchasedException extends RuntimeException {
 

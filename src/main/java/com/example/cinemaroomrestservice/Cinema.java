@@ -1,10 +1,10 @@
 package com.example.cinemaroomrestservice;
 
+import com.example.cinemaroomrestservice.exceptions.SeatNotFoundException;
+import com.example.cinemaroomrestservice.exceptions.SeatPurchasedException;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Cinema {
     @JsonProperty("total_rows")

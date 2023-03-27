@@ -1,5 +1,8 @@
-package com.example.cinemaroomrestservice;
+package com.example.cinemaroomrestservice.controller;
 
+import com.example.cinemaroomrestservice.exceptions.CustomErrorMessage;
+import com.example.cinemaroomrestservice.exceptions.SeatNotFoundException;
+import com.example.cinemaroomrestservice.exceptions.SeatPurchasedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
