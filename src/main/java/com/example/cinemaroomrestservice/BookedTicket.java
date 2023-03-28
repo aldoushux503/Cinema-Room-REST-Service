@@ -3,13 +3,15 @@ package com.example.cinemaroomrestservice;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-public class PurchaseSeat {
+public class BookedTicket {
+
+    @JsonProperty("token")
     private final Token token;
     @JsonProperty("ticket")
     private final Ticket ticket;
 
 
-    public PurchaseSeat(Ticket ticket) {
+    public BookedTicket(Ticket ticket) {
         this.ticket = ticket;
         this.token = Token.generateToken();
     }

@@ -26,7 +26,7 @@ public class CinemaController {
     }
 
     @PostMapping("/purchase")
-    public PurchaseSeat purchaseSeat(@RequestBody String requestJson) {
+    public BookedTicket purchaseSeat(@RequestBody String requestJson) {
         Ticket purchaseTicket = null;
         try {
             purchaseTicket = mapper.readValue(requestJson, Ticket.class);
@@ -35,7 +35,7 @@ public class CinemaController {
         }
 
         Ticket ticket = cinemaRoom.findAvailableSeat(purchaseTicket);
-        PurchaseSeat purchase = new PurchaseSeat(ticket);
+        BookedTicket purchase = new BookedTicket(ticket);
         availableTokensMap.put(purchase.getToken(), ticket);
 
         return purchase;
