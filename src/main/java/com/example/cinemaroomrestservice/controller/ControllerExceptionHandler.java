@@ -1,9 +1,6 @@
 package com.example.cinemaroomrestservice.controller;
 
-import com.example.cinemaroomrestservice.exceptions.CustomErrorMessage;
-import com.example.cinemaroomrestservice.exceptions.SeatNotFoundException;
-import com.example.cinemaroomrestservice.exceptions.SeatPurchasedException;
-import com.example.cinemaroomrestservice.exceptions.WrongTokenException;
+import com.example.cinemaroomrestservice.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -36,6 +33,12 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(WrongPasswordException.class)
+    public ResponseEntity<CustomErrorMessage> handleFlightNotFound(
+            WrongPasswordException e, WebRequest request) {
 
+        CustomErrorMessage body = new CustomErrorMessage("The password is wrong!");
+        return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
+    }
 }
 

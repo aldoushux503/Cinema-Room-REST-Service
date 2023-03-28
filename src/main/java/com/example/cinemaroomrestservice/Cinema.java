@@ -5,7 +5,7 @@ import com.example.cinemaroomrestservice.exceptions.SeatPurchasedException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Cinema {
     @JsonProperty("total_rows")
@@ -47,12 +47,32 @@ public class Cinema {
     }
 
     public void returnFromPurchase(Ticket ticket) {
-        for (Ticket s : availableTickets) {
+        for (Ticket s : purchasedTickets) {
             if (s.getRow() == ticket.getRow() && s.getColumn() == ticket.getColumn()) {
+                availableTickets.add(ticket);
                 purchasedTickets.remove(s);
                 return;
             }
         }
+    }
+
+    public Map<String, Integer> calculateStatistic() {
+        Map<String, Integer> res = new TreeMap<>();
+
+        res.put("current_income", countCurrentIncome());
+        res.put("number_of_available_seats", availableTickets.size());
+        res.put("number_of_purchased_tickets", purchasedTickets.size());
+
+        return res;
+    }
+
+
+    private Integer countCurrentIncome() {
+        int total = 0;
+        for (Ticket t : purchasedTickets) {
+            total += t.getPrice();
+        }
+        return total;
     }
 
     public int getTotalRows() {
@@ -63,7 +83,7 @@ public class Cinema {
         return totalColumns;
     }
 
-    public ArrayList<Ticket> getAvailableSeats() {
+    public ArrayList<Ticket> getAvailableTickets() {
         return availableTickets;
     }
 }

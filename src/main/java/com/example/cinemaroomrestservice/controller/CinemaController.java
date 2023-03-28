@@ -1,15 +1,13 @@
 package com.example.cinemaroomrestservice.controller;
 
 import com.example.cinemaroomrestservice.*;
+import com.example.cinemaroomrestservice.exceptions.WrongPasswordException;
 import com.example.cinemaroomrestservice.exceptions.WrongTokenException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,5 +56,16 @@ public class CinemaController {
             return Map.of("returned_ticket", findedTicket);
         }
         throw new WrongTokenException();
+    }
+
+
+    @PostMapping("/stats")
+    @ResponseBody
+    public Map<String, Integer> showStats(@RequestParam(required = false) String password) {
+        if (password == null || !password.equals("super_secret")) {
+            throw new WrongPasswordException();
+        }
+
+        return cinema.calculateStatistic();
     }
 }
