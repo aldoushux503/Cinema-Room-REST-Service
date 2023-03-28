@@ -1,5 +1,15 @@
 # Cinema Room REST Service
 
+
+
+## Table of Contents
+* [About The Project](#about-the-project)
+* [Getting Started](#getting-started)
+* [Usage](#usage)
+* [Tools Used](#tools-used)
+* [Endpoints](#endpoints)
+
+## About The Project
 The REST service that is responsible for showing available tickets, selling them, making a refund, and getting statistics.
 
 ## Getting Started
