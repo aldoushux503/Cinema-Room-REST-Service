@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.*;
 
-public class Cinema {
+public class CinemaRoom {
     @JsonProperty("total_rows")
     private final int totalRows = 9;
 
@@ -20,11 +20,13 @@ public class Cinema {
     @JsonIgnore
     private final ArrayList<Ticket> purchasedTickets = new ArrayList<>();
 
+    @JsonIgnore
+    private final int PRICE_SWITCH = 4, PRICE_HIGH = 10, PRICE_LOW = 8;
 
-    public Cinema() {
+    public CinemaRoom() {
         for (int row = 1; row <= totalRows; row++) {
             for (int column = 1; column <= totalColumns; column++) {
-                availableTickets.add(new Ticket(row, column));
+                availableTickets.add(new Ticket(row, column, row <= PRICE_SWITCH ? PRICE_HIGH : PRICE_LOW));
             }
         }
     }

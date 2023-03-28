@@ -17,12 +17,12 @@ public class CinemaController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CinemaRoomRestServiceApplication.class);
     ObjectMapper mapper = new ObjectMapper();
-    private final Cinema cinema = new Cinema();
+    private final CinemaRoom cinemaRoom = new CinemaRoom();
     private static final Map<String, Ticket> availableTokensMap = new HashMap<>();
 
     @GetMapping("/seats")
-    public Cinema getCinemaInformation() {
-        return cinema;
+    public CinemaRoom getCinemaInformation() {
+        return cinemaRoom;
     }
 
     @PostMapping("/purchase")
@@ -34,7 +34,7 @@ public class CinemaController {
             LOGGER.error(String.valueOf(e));
         }
 
-        Ticket ticket = cinema.findAvailableSeat(purchaseTicket);
+        Ticket ticket = cinemaRoom.findAvailableSeat(purchaseTicket);
         PurchaseSeat purchase = new PurchaseSeat(ticket);
         availableTokensMap.put(purchase.getToken(), ticket);
 
@@ -52,7 +52,7 @@ public class CinemaController {
 
         if (availableTokensMap.containsKey(token)) {
             Ticket findedTicket = availableTokensMap.get(token);
-            cinema.returnFromPurchase(findedTicket);
+            cinemaRoom.returnFromPurchase(findedTicket);
             return Map.of("returned_ticket", findedTicket);
         }
         throw new WrongTokenException();
@@ -66,6 +66,6 @@ public class CinemaController {
             throw new WrongPasswordException();
         }
 
-        return cinema.calculateStatistic();
+        return cinemaRoom.calculateStatistic();
     }
 }

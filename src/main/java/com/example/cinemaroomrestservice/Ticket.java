@@ -8,12 +8,10 @@ public class Ticket {
 
     private final int price;
 
-    public Ticket(@JsonProperty("row") int row, @JsonProperty("column") int column) {
+    public Ticket(@JsonProperty("row") int row, @JsonProperty("column") int column, @JsonProperty("price") int price) {
         this.row = row;
         this.column = column;
-
-        //If the row number <= to 4, the price will be 10, other rows cost 8 per seat.
-        this.price = row <= 4 ? 10 : 8;
+        this.price = price;
     }
 
     public int getRow() {
