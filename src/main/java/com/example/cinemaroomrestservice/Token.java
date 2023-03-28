@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.UUID;
 
 public class Token {
-    private String value;
+    private final String value;
 
     private Token(@JsonProperty("token") String value) {
         this.value = value;

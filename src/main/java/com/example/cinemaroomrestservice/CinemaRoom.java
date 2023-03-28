@@ -32,13 +32,13 @@ public class CinemaRoom {
     }
 
     public Ticket findAvailableSeat(Ticket ticket) {
-        if (ticket.getRow() > totalRows || ticket.getColumn() > totalColumns ||
-                ticket.getRow() <= 0 || ticket.getColumn() <= 0) {
+        if (ticket.row() > totalRows || ticket.column() > totalColumns ||
+                ticket.row() <= 0 || ticket.column() <= 0) {
             throw new SeatNotFoundException();
         }
 
         for (Ticket s : availableTickets) {
-            if (s.getRow() == ticket.getRow() && s.getColumn() == ticket.getColumn()) {
+            if (s.row() == ticket.row() && s.column() == ticket.column()) {
                 availableTickets.remove(s);
                 purchasedTickets.add(s);
                 return s;
@@ -50,7 +50,7 @@ public class CinemaRoom {
 
     public void returnFromPurchase(Ticket ticket) {
         for (Ticket s : purchasedTickets) {
-            if (s.getRow() == ticket.getRow() && s.getColumn() == ticket.getColumn()) {
+            if (s.row() == ticket.row() && s.column() == ticket.column()) {
                 availableTickets.add(ticket);
                 purchasedTickets.remove(s);
                 return;
@@ -72,7 +72,7 @@ public class CinemaRoom {
     private Integer countCurrentIncome() {
         int total = 0;
         for (Ticket t : purchasedTickets) {
-            total += t.getPrice();
+            total += t.price();
         }
         return total;
     }
