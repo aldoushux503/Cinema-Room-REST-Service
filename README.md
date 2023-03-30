@@ -10,7 +10,7 @@
 * [Endpoints](#endpoints)
 
 ## About The Project
-The REST service that is responsible for showing available tickets, selling them, making a refund, and getting statistics.
+The REST service that is responsible for showing available tickets, book them, making a refund, and getting statistics.
 
 ## Getting Started
 To get started with this project, you'll need to clone the repository and install the necessary dependencies.
