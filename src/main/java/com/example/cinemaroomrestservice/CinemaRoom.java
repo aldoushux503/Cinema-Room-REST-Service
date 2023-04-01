@@ -15,10 +15,10 @@ public class CinemaRoom {
     private final int totalColumns = 9;
 
     @JsonProperty("available_seats")
-    private final ArrayList<Ticket> availableTickets = new ArrayList<>();
+    private final List<Ticket> availableTickets = Collections.synchronizedList(new ArrayList<>());
 
     @JsonIgnore
-    private final ArrayList<Ticket> purchasedTickets = new ArrayList<>();
+    private final List<Ticket> purchasedTickets = Collections.synchronizedList(new ArrayList<>());
 
     @JsonIgnore
     private final int PRICE_SWITCH = 4, PRICE_HIGH = 10, PRICE_LOW = 8;
@@ -85,7 +85,7 @@ public class CinemaRoom {
         return totalColumns;
     }
 
-    public ArrayList<Ticket> getAvailableTickets() {
+    public List<Ticket> getAvailableTickets() {
         return availableTickets;
     }
 }

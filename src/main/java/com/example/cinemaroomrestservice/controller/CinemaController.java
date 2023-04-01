@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 @RestController
 public class CinemaController {
@@ -18,7 +20,7 @@ public class CinemaController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CinemaRoomRestServiceApplication.class);
     ObjectMapper mapper = new ObjectMapper();
     private final CinemaRoom cinemaRoom = new CinemaRoom();
-    private static final Map<String, Ticket> availableTokensMap = new HashMap<>();
+    private static final ConcurrentMap<String, Ticket> availableTokensMap = new ConcurrentHashMap<>();
 
     @GetMapping("/seats")
     public CinemaRoom getCinemaInformation() {
@@ -65,7 +67,6 @@ public class CinemaController {
         if (password == null || !password.equals("super_secret")) {
             throw new WrongPasswordException();
         }
-
         return cinemaRoom.calculateStatistic();
     }
 }
