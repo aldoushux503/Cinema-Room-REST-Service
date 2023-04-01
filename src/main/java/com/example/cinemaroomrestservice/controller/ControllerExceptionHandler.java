@@ -10,32 +10,28 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class ControllerExceptionHandler {
     @ExceptionHandler(SeatNotFoundException.class)
-    public ResponseEntity<CustomErrorMessage> handleFlightNotFound(
-            SeatNotFoundException e, WebRequest request) {
+    public ResponseEntity<CustomErrorMessage> handleSeatNotFound() {
 
         CustomErrorMessage body = new CustomErrorMessage("The number of a row or a column is out of bounds!");
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(SeatPurchasedException.class)
-    public ResponseEntity<CustomErrorMessage> handleFlightNotFound(
-            SeatPurchasedException e, WebRequest request) {
+    public ResponseEntity<CustomErrorMessage> handleTicketPurchased() {
 
         CustomErrorMessage body = new CustomErrorMessage("The ticket has been already purchased!");
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(WrongTokenException.class)
-    public ResponseEntity<CustomErrorMessage> handleFlightNotFound(
-            WrongTokenException e, WebRequest request) {
+    public ResponseEntity<CustomErrorMessage> handleWrongToken() {
 
         CustomErrorMessage body = new CustomErrorMessage("Wrong token!");
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(WrongPasswordException.class)
-    public ResponseEntity<CustomErrorMessage> handleFlightNotFound(
-            WrongPasswordException e, WebRequest request) {
+    public ResponseEntity<CustomErrorMessage> handleWrongPassword() {
 
         CustomErrorMessage body = new CustomErrorMessage("The password is wrong!");
         return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
