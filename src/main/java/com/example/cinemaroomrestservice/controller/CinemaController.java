@@ -17,8 +17,6 @@ import java.util.concurrent.ConcurrentMap;
 @RestController
 public class CinemaController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CinemaRoomRestServiceApplication.class);
-    ObjectMapper mapper = new ObjectMapper();
     private final CinemaRoom cinemaRoom = new CinemaRoom();
     private static final ConcurrentMap<String, Ticket> availableTokensMap = new ConcurrentHashMap<>();
 
@@ -28,14 +26,7 @@ public class CinemaController {
     }
 
     @PostMapping("/purchase")
-    public BookedTicket purchaseSeat(@RequestBody String requestJson) {
-        Ticket purchaseTicket = null;
-        try {
-            purchaseTicket = mapper.readValue(requestJson, Ticket.class);
-        } catch (JsonProcessingException e) {
-            LOGGER.error(String.valueOf(e));
-        }
-
+    public BookedTicket purchaseSeat(@RequestBody Ticket purchaseTicket) {
         Ticket ticket = cinemaRoom.findAvailableSeat(purchaseTicket);
         BookedTicket purchase = new BookedTicket(ticket);
         availableTokensMap.put(purchase.getToken(), ticket);
@@ -44,16 +35,11 @@ public class CinemaController {
     }
 
     @PostMapping("/return")
-    public Map<String, Ticket> returnTicket(@RequestBody String requestJson) {
-        String token = null;
-        try {
-            token = mapper.readValue(requestJson, Token.class).getValue();
-        } catch (JsonProcessingException e) {
-            LOGGER.error(String.valueOf(e));
-        }
+    public Map<String, Ticket> returnTicket(@RequestBody Token token) {
+        String tokenValue = token.getValue();
 
-        if (availableTokensMap.containsKey(token)) {
-            Ticket findedTicket = availableTokensMap.get(token);
+        if (availableTokensMap.containsKey(tokenValue)) {
+            Ticket findedTicket = availableTokensMap.get(tokenValue);
             cinemaRoom.returnFromPurchase(findedTicket);
             return Map.of("returned_ticket", findedTicket);
         }
