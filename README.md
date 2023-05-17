@@ -32,7 +32,6 @@ The server will start on port 8080 by default. You can access the REST API by se
 * Java
 * Spring Boot
 * Maven
-* Jackson
 
 ## Endpoints
 The following endpoints are available:
