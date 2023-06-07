@@ -1,4 +1,4 @@
-package com.example.cinemaroomrestservice;
+package com.example.cinemaroomrestservice.model;
 
 import com.example.cinemaroomrestservice.exceptions.SeatNotFoundException;
 import com.example.cinemaroomrestservice.exceptions.SeatPurchasedException;

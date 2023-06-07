@@ -1,15 +1,13 @@
 package com.example.cinemaroomrestservice.controller;
 
-import com.example.cinemaroomrestservice.*;
 import com.example.cinemaroomrestservice.exceptions.WrongPasswordException;
 import com.example.cinemaroomrestservice.exceptions.WrongTokenException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.cinemaroomrestservice.model.BookedTicket;
+import com.example.cinemaroomrestservice.model.CinemaRoom;
+import com.example.cinemaroomrestservice.model.Ticket;
+import com.example.cinemaroomrestservice.model.Token;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;

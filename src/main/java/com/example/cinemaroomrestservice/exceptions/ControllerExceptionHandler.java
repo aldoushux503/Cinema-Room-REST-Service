@@ -1,4 +1,4 @@
-package com.example.cinemaroomrestservice.controller;
+package com.example.cinemaroomrestservice.exceptions;
 
 import com.example.cinemaroomrestservice.exceptions.*;
 import org.springframework.http.HttpStatus;
